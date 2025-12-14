@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>NYLZ 諾亞龍舟</title>
+  <meta name="description" content="NYLZ 諾亞龍舟｜全球高速安全VPN，加密上网，解锁世界内容，跨境办公更顺畅。">
+  <style>
+    :root {
+      --background-color: #0f1220;
+      --card-background: rgba(255, 255, 255, 0.65);
+      --text-color: #111827;
+      --secondary-text-color: #4b5563;
+      --border-color: rgba(255, 255, 255, 0.35);
+      --theme-color: #3b82f6;
+      --theme-color-rgb: 59, 130, 246;
+      --shadow-color: rgba(0, 0, 0, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--background-color);
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: url('https://api.sretna.cn/api/sc.php') center / cover no-repeat fixed;
+      transform: translateZ(0);
+      will-change: transform;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(1000px 600px at 10% 10%, rgba(59,130,246,0.20), transparent 60%),
+        radial-gradient(900px 550px at 90% 20%, rgba(167,71,254,0.22), transparent 65%),
+        radial-gradient(800px 500px at 50% 100%, rgba(55,222,201,0.20), transparent 60%);
+      mix-blend-mode: lighten;
+      pointer-events: none;
+    }
+    .dark {
+      --background-color: #0b0e17;
+      --card-background: rgba(0, 0, 0, 0.65);
+      --text-color: rgba(255,255,255,0.95);
+      --secondary-text-color: rgba(255,255,255,0.7);
+      --border-color: rgba(255, 255, 255, 0.12);
+      --shadow-color: rgba(0, 0, 0, 0.35);
+    }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 14px;
+      background: var(--card-background);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 26px var(--shadow-color);
+      border: 1px solid var(--border-color);
+    }
+    .mobile-menu {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .icon-btn {
+      height: 40px;
+      width: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--card-background);
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px var(--shadow-color);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .icon-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--theme-color);
+    }
+    .logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(var(--theme-color-rgb),0.9), #6a00ff);
+      overflow: hidden;
+      position: relative;
+    }
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+    .site-name {
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: var(--text-color);
+      line-height: 28px;
+      white-space: nowrap;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--card-background);
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px var(--shadow-color);
+      border-color: var(--theme-color);
+    }
+    .btn::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(var(--theme-color-rgb), 0.25);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.5s ease, opacity 0.5s ease, width 0s, height 0s;
+      pointer-events: none;
+    }
+    .btn:active::after {
+      width: 140px;
+      height: 140px;
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    .btn-primary {
+      background: linear-gradient(180deg, rgba(var(--theme-color-rgb), 1), rgba(var(--theme-color-rgb), 0.9));
+      color: #fff;
+      border-color: rgba(var(--theme-color-rgb), 0.85);
+      box-shadow: 0 10px 28px rgba(var(--theme-color-rgb), 0.35);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 14px 34px rgba(var(--theme-color-rgb), 0.45);
+      filter: brightness(1.05);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+      padding: 48px 24px 8px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-card, .hero-visual { width: 100%; }
+    .hero-card {
+      background: var(--card-background);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      box-shadow: 0 16px 42px var(--shadow-color);
+      padding: 36px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .hero-title {
+      font-size: 38px;
+      line-height: 1.15;
+      margin: 0 0 16px;
+      color: var(--text-color);
+    }
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--secondary-text-color);
+      margin-bottom: 22px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .hero-visual {
+      position: relative;
+      height: 320px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: radial-gradient(1200px 600px at 50% 30%, rgba(var(--theme-color-rgb),0.18), transparent 65%);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 16px 42px var(--shadow-color);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .visual-ring {
+      position: absolute;
+      inset: 0;
+      will-change: transform;
+    }
+    .ring {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 2px dashed rgba(var(--theme-color-rgb), 0.35);
+      animation: spin 22s linear infinite;
+    }
+    .ring.r2 { width: 360px; height: 360px; left: 40px; top: -40px; animation-duration: 28s; }
+    .ring.r3 { width: 520px; height: 520px; left: -60px; top: -100px; animation-duration: 36s; }
+    .stats {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 10px;
+    }
+    .stat {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--card-background);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      font-size: 12px;
+      box-shadow: 0 8px 22px var(--shadow-color);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .sections {
+      padding: 8px 24px 56px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .mobile-menu-panel {
+      position: fixed;
+      top: 64px;
+      right: 16px;
+      z-index: 30;
+      display: none;
+      min-width: 240px;
+      background: var(--card-background);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      box-shadow: 0 16px 42px var(--shadow-color);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      overflow: visible;
+    }
+    .mobile-menu-panel.open { display: block; }
+    .mobile-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .mobile-panel-body {
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .mobile-panel-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .close-btn {
+      height: 32px;
+      width: 32px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .close-btn:hover { border-color: var(--theme-color); color: var(--theme-color); }
+    .section-card {
+      background: var(--card-background);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      box-shadow: 0 12px 32px var(--shadow-color);
+      padding: 22px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .feature {
+      padding: 18px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(var(--theme-color-rgb), 0.08), transparent 45%), var(--card-background);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      box-shadow: 0 8px 22px var(--shadow-color);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .feature:hover { transform: translateY(-2px); box-shadow: 0 12px 28px var(--shadow-color); }
+    .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-desc { font-size: 14px; color: var(--secondary-text-color); }
+    .footer {
+      padding: 24px;
+      text-align: center;
+      color: var(--secondary-text-color);
+    }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .dropdown-toggle {
+      height: 40px;
+      padding: 0 14px;
+      padding-right: 32px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--card-background);
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 160px;
+      justify-content: space-between;
+    }
+    .dropdown-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px var(--shadow-color);
+      border-color: var(--theme-color);
+    }
+    .caret {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid rgba(0,0,0,0.35);
+      transition: transform 0.2s ease;
+    }
+    .dropdown-toggle[aria-expanded="true"] .caret { transform: rotate(180deg); }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 240px;
+      background: var(--card-background);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: 0 14px 34px var(--shadow-color);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 8px;
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+      transition: transform 0.18s ease, opacity 0.18s ease;
+      pointer-events: none;
+      z-index: 25;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .dropdown-menu.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .dropdown.mobile .dropdown-menu { left: 0; right: 0; width: 100%; }
+    .dropdown-menu.top {
+      top: auto;
+      bottom: calc(100% + 8px);
+    }
+    .dropdown-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 0;
+      background: transparent;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .dropdown-item:hover {
+      background: rgba(var(--theme-color-rgb), 0.08);
+    }
+    .dropdown-item.active {
+      background: rgba(var(--theme-color-rgb), 0.12);
+    }
+    .dropdown-item.active::after {
+      content: "✓";
+      margin-left: auto;
+      color: var(--theme-color);
+      font-weight: 700;
+    }
+    .toolbar select {
+      height: 40px;
+      padding: 0 12px;
+      padding-right: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--card-background);
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image:
+        linear-gradient( to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.08) ),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="%23AAAAAA"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat, no-repeat;
+      background-position: left 0 top 0, right 10px center;
+      background-size: 100% 100%, 14px 14px;
+    }
+    .toolbar select:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px var(--shadow-color);
+      border-color: var(--theme-color);
+    }
+    .toolbar select:focus {
+      outline: none;
+      border-color: var(--theme-color);
+      box-shadow: 0 0 0 3px rgba(var(--theme-color-rgb), 0.25);
+    }
+    .toolbar select option {
+      color: #111827;
+    }
+    .toggle {
+      height: 40px;
+      padding: 0 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--card-background);
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px var(--shadow-color);
+      border-color: var(--theme-color);
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      filter: blur(4px);
+      will-change: transform, opacity, filter;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease, filter 0.6s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+    .section-card.reveal { transform: translateY(14px); }
+    .section-card.reveal.in { transform: translateY(0); }
+    .visual-reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      filter: blur(6px);
+      will-change: transform, opacity, filter;
+      transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease, filter 0.8s ease;
+    }
+    .visual-reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ring, .reveal { animation: none !important; transition: none !important; }
+    }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { height: 260px; }
+      .features { grid-template-columns: 1fr 1fr; }
+      .nav { flex-wrap: wrap; gap: 10px; }
+      .nav-left { padding: 6px 10px; border-radius: 12px; flex-shrink: 0; }
+      .nav-actions { width: 100%; justify-content: flex-end; gap: 8px; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+      .nav-actions::-webkit-scrollbar { display: none; }
+      .btn, .toggle, .toolbar select { flex: 0 0 auto; }
+    }
+    @media (max-width: 640px) {
+      .features { grid-template-columns: 1fr; }
+      .hero-title { font-size: 30px; }
+      .hero-card { padding: 22px; border-radius: 18px; }
+      .hero-visual { height: 200px; border-radius: 18px; }
+      .hero-card, .hero-visual, .section-card { width: 100%; }
+      .hero-ctas { gap: 8px; }
+      .hero-ctas .btn { flex: 1 1 0; min-width: 0; }
+      .btn, .toggle, .toolbar select { height: 36px; padding: 0 10px; }
+      .toolbar select { min-width: 96px; max-width: 140px; }
+      .nav { padding: 14px 16px; }
+      .site-name { display: none; }
+      .nav-left { gap: 8px; }
+      .toolbar { gap: 8px; flex-wrap: nowrap; }
+      .nav-actions { display: none; }
+      .mobile-menu { display: flex; }
+      .section-card { padding: 18px; }
+      .feature { padding: 16px; }
+      .feature-title { font-size: 15px; }
+    }
+    @media (max-width: 400px) {
+      .hero-title { font-size: 26px; }
+      .hero-visual { height: 180px; }
+      .hero-card { padding: 18px; }
+      .btn, .toggle, .toolbar select { height: 34px; padding: 0 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page" id="page">
+    <div class="nav">
+      <div class="nav-left">
+        <div class="logo"><img src="/images/logo.png" alt="logo" class="logo-img"></div>
+        <div class="site-name" id="siteName">NYLZ 諾亞龍舟</div>
+      </div>
+      <div class="mobile-menu">
+        <button class="icon-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
+      </div>
+      <div class="nav-actions toolbar">
+        <button class="toggle" id="toggleTheme">切换主题</button>
+        <div class="dropdown" id="langDropdown">
+          <button class="dropdown-toggle" id="langToggle" aria-expanded="false">
+            <span id="langLabel">简体中文</span>
+            <span class="caret"></span>
+          </button>
+          <div class="dropdown-menu" id="langMenu" role="menu" aria-labelledby="langToggle">
+            <button class="dropdown-item" data-lang="zh-CN">简体中文</button>
+            <button class="dropdown-item" data-lang="zh-HK">简体中文(香港)</button>
+            <button class="dropdown-item" data-lang="zh-TW">繁體中文(台灣)</button>
+            <button class="dropdown-item" data-lang="ja-JP">日本語</button>
+            <button class="dropdown-item" data-lang="en-US">English</button>
+          </div>
+        </div>
+        <button class="btn" id="toLoginTop">登录</button>
+        <button class="btn btn-primary" id="toRegisterTop">注册</button>
+      </div>
+    </div>
+    <div id="mobileMenuPanel" class="mobile-menu-panel" aria-hidden="true">
+      <div class="mobile-panel-header">
+        <div style="font-weight:600;color:var(--text-color)">快速操作</div>
+        <button class="close-btn" id="mobileMenuClose" aria-label="Close">✕</button>
+      </div>
+      <div class="mobile-panel-body">
+        <div class="dropdown mobile" id="mobileLangDropdown">
+          <button class="dropdown-toggle" id="mobileLangToggle" aria-expanded="false" style="width:100%; justify-content: space-between;">
+            <span id="mobileLangLabel">简体中文</span>
+            <span class="caret"></span>
+          </button>
+          <div class="dropdown-menu" id="mobileLangMenu" role="menu" aria-labelledby="mobileLangToggle">
+            <button class="dropdown-item" data-lang="zh-CN">简体中文</button>
+            <button class="dropdown-item" data-lang="zh-HK">简体中文(香港)</button>
+            <button class="dropdown-item" data-lang="zh-TW">繁體中文(台灣)</button>
+            <button class="dropdown-item" data-lang="ja-JP">日本語</button>
+            <button class="dropdown-item" data-lang="en-US">English</button>
+          </div>
+        </div>
+        <button class="toggle" id="mobileToggleTheme">切换主题</button>
+        <div class="mobile-panel-actions">
+          <button class="btn" id="mobileLoginBtn">登录</button>
+          <button class="btn btn-primary" id="mobileRegisterBtn">注册</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-card reveal">
+        <h1 class="hero-title" id="heroTitle">即刻连接全球网络，畅享高速与安全</h1>
+        <p class="hero-subtitle" id="heroSubtitle">银行级加密隧道，智能加速引擎，稳定低延迟。解锁流媒体与跨境应用，让办公与娱乐更顺畅。</p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" id="ctaLogin">立即登录</button>
+          <button class="btn" id="ctaRegister">注册账号</button>
+        </div>
+      </div>
+      <div class="hero-visual visual-reveal">
+        <div class="visual-ring">
+          <div class="ring" style="left: -20px; top: 20px;"></div>
+          <div class="ring r2"></div>
+          <div class="ring r3"></div>
+        </div>
+        <div class="stats">
+          <div class="stat reveal" id="stat1">全球节点 120+</div>
+          <div class="stat reveal" id="stat2">高峰速率 1Gbps+</div>
+          <div class="stat reveal" id="stat3">可用率 99.99%</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sections">
+      <div class="section-card reveal">
+        <div class="features" id="features"></div>
+      </div>
+    </section>
+
+    <div class="footer"><span id="footerText">© 2025 LONGSHANG 龍殤</span></div>
+  </div>
+
+  <script>
+    (function () {
+      var page = document.getElementById('page');
+      var langSelect = document.getElementById('langSelect');
+      var mobileLangSelect = document.getElementById('mobileLangSelect');
+      var logoEl = document.querySelector('.logo');
+      var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      var mobileMenuPanel = document.getElementById('mobileMenuPanel');
+      var mobileMenuClose = document.getElementById('mobileMenuClose');
+      var mobileToggleThemeBtn = document.getElementById('mobileToggleTheme');
+      var mobileLoginBtn = document.getElementById('mobileLoginBtn');
+      var mobileRegisterBtn = document.getElementById('mobileRegisterBtn');
+      var btns = [
+        { id: 'toLoginTop', route: 'login' },
+        { id: 'toRegisterTop', route: 'register' },
+        { id: 'ctaLogin', route: 'login' },
+        { id: 'ctaRegister', route: 'register' }
+      ];
+      btns.forEach(function (b) {
+        var el = document.getElementById(b.id);
+        if (el) {
+          el.addEventListener('click', function () {
+            try {
+              window.parent && window.parent.postMessage({ type: 'navigation', route: b.route }, '*');
+            } catch (e) {}
+          });
+        }
+      });
+      if (logoEl) {
+        logoEl.addEventListener('click', function () {
+          try {
+            window.parent && window.parent.postMessage({ type: 'navigation', route: '' }, '*');
+          } catch (e) {}
+        });
+      }
+      var toggleThemeBtn = document.getElementById('toggleTheme');
+      var langDropdown = document.getElementById('langDropdown');
+      var langToggle = document.getElementById('langToggle');
+      var langMenu = document.getElementById('langMenu');
+      var langLabel = document.getElementById('langLabel');
+      var mobileLangDropdown = document.getElementById('mobileLangDropdown');
+      var mobileLangToggle = document.getElementById('mobileLangToggle');
+      var mobileLangMenu = document.getElementById('mobileLangMenu');
+      var mobileLangLabel = document.getElementById('mobileLangLabel');
+      var langNames = { 'zh-CN': '简体中文', 'zh-HK': '简体中文(香港)', 'zh-TW': '繁體中文(台灣)', 'ja-JP': '日本語', 'en-US': 'English' };
+      var currentTheme = 'light';
+      function applyTheme(theme) {
+        currentTheme = theme;
+        if (theme === 'dark') {
+          page.classList.add('dark');
+        } else {
+          page.classList.remove('dark');
+        }
+      }
+      function setFooterBrand() {
+        var el = document.getElementById('footerText');
+        if (el) {
+          var year = new Date().getFullYear();
+          el.textContent = '© ' + year + ' LONGSHANG 龍殤';
+        }
+      }
+      function renderFeatures(items) {
+        var el = document.getElementById('features');
+        if (!el) return;
+        var html = '';
+        items.forEach(function (it, idx) {
+          html += '<div class="feature reveal" data-idx="'+idx+'"><div class="feature-title">'+it.title+'</div><div class="feature-desc">'+it.desc+'</div></div>';
+        });
+        el.innerHTML = html;
+      }
+      var i18n = {
+        'zh-CN': {
+          siteName: 'NYLZ 諾亞龍舟',
+          heroTitle: '即刻连接全球网络，畅享高速与安全',
+          heroSubtitle: '银行级加密隧道，智能加速引擎，稳定低延迟。解锁流媒体与跨境应用，让办公与娱乐更顺畅。',
+          topLogin: '登录',
+          topRegister: '注册',
+          toggleTheme: '切换主题',
+          ctaLogin: '立即登录',
+          ctaRegister: '注册账号',
+          stats: ['全球节点 120+', '高峰速率 1Gbps+', '可用率 99.99%'],
+          features: [
+            { title: '银行级加密', desc: 'AES-256 与多重握手，公私网环境全方位守护。' },
+            { title: '智能低延迟', desc: '智能路由与动态优化，高并发场景同样稳定。' },
+            { title: '解锁内容', desc: '流媒体与跨境应用畅享访问，办公娱乐两不误。' },
+            { title: '多平台支持', desc: 'Windows、macOS、iOS、Android 全平台覆盖。' },
+            { title: '一键订阅', desc: '一键导入主流客户端，快速上手无需繁琐配置。' },
+            { title: '严选节点', desc: '高质量线路与精细化运维，故障快速恢复。' }
+          ]
+        },
+        'zh-HK': {
+          siteName: 'NYLZ 諾亞龍舟',
+          heroTitle: '立即連接全球網絡，暢享高速與安全',
+          heroSubtitle: '銀行級加密隧道、智能加速引擎、穩定低延遲。解鎖串流與跨境應用，讓工作與娛樂更順暢。',
+          topLogin: '登入',
+          topRegister: '註冊',
+          toggleTheme: '切換主題',
+          ctaLogin: '立即登入',
+          ctaRegister: '註冊帳號',
+          stats: ['全球節點 120+', '峰值速率 1Gbps+', '可用率 99.99%'],
+          features: [
+            { title: '銀行級加密', desc: 'AES-256 與多重握手，公私網環境全方位守護。' },
+            { title: '智能低延遲', desc: '智能路由與動態優化，高並發場景同樣穩定。' },
+            { title: '解鎖內容', desc: '串流媒體與跨境應用暢享訪問，工作娛樂兩不誤。' },
+            { title: '多平台支持', desc: 'Windows、macOS、iOS、Android 全平台覆蓋。' },
+            { title: '一鍵訂閱', desc: '一鍵導入主流客戶端，快速上手無需繁瑣配置。' },
+            { title: '嚴選節點', desc: '高品質線路與精細化運維，故障快速恢復。' }
+          ]
+        },
+        'zh-TW': {
+          siteName: 'NYLZ 諾亞龍舟',
+          heroTitle: '立即連接全球網路，暢享高速與安全',
+          heroSubtitle: '銀行級加密隧道、智慧加速引擎、穩定低延遲。解鎖串流與跨境應用，讓辦公與娛樂更順暢。',
+          topLogin: '登入',
+          topRegister: '註冊',
+          toggleTheme: '切換主題',
+          ctaLogin: '立即登入',
+          ctaRegister: '註冊帳號',
+          stats: ['全球節點 120+', '峰值速率 1Gbps+', '可用率 99.99%'],
+          features: [
+            { title: '銀行級加密', desc: 'AES-256 與多重握手，公私網環境全方位守護。' },
+            { title: '智慧低延遲', desc: '智慧路由與動態優化，高並發場景同樣穩定。' },
+            { title: '解鎖內容', desc: '串流媒體與跨境應用暢享訪問，辦公娛樂兩不誤。' },
+            { title: '多平台支援', desc: 'Windows、macOS、iOS、Android 全平台覆蓋。' },
+            { title: '一鍵訂閱', desc: '一鍵導入主流客戶端，快速上手無需繁瑣設定。' },
+            { title: '嚴選節點', desc: '高品質線路與精細化運維，故障快速恢復。' }
+          ]
+        },
+        'ja-JP': {
+          siteName: 'NYLZ ノアドラゴンボート',
+          heroTitle: '世界とつながる、速くて安全なネット体験',
+          heroSubtitle: '銀行レベルの暗号化トンネルとスマート加速で低遅延。動画やクロスボーダーアプリもスムーズ。',
+          topLogin: 'ログイン',
+          topRegister: '登録',
+          toggleTheme: 'テーマ切替',
+          ctaLogin: '今すぐログイン',
+          ctaRegister: 'アカウント登録',
+          stats: ['グローバルノード 120+', 'ピーク速度 1Gbps+', '稼働率 99.99%'],
+          features: [
+            { title: '銀行レベル暗号化', desc: 'AES-256 と多重ハンドシェイクで強固に保護。' },
+            { title: 'スマート低遅延', desc: 'スマートルーティングと動的最適化で安定。' },
+            { title: 'コンテンツ解放', desc: '動画配信やクロスボーダーアプリに快適アクセス。' },
+            { title: 'マルチプラットフォーム', desc: 'Windows、macOS、iOS、Android に対応。' },
+            { title: 'ワンクリック購読', desc: '主要クライアントへ簡単インポート。' },
+            { title: '厳選ノード', desc: '高品質回線と精緻な運用で迅速復旧。' }
+          ]
+        },
+        'en-US': {
+          siteName: 'NYLZ Noah Dragon Boat',
+          heroTitle: 'Connect Globally, Enjoy Speed and Security',
+          heroSubtitle: 'Bank-level encryption and smart acceleration with low latency. Unlock streaming and cross‑border apps.',
+          topLogin: 'Log In',
+          topRegister: 'Sign Up',
+          toggleTheme: 'Toggle Theme',
+          ctaLogin: 'Log In Now',
+          ctaRegister: 'Create Account',
+          stats: ['Global Nodes 120+', 'Peak Speed 1Gbps+', 'Availability 99.99%'],
+          features: [
+            { title: 'Bank-level Encryption', desc: 'AES-256 with multi-handshake for comprehensive protection.' },
+            { title: 'Smart Low Latency', desc: 'Smart routing and dynamic optimization keep things stable.' },
+            { title: 'Unlock Content', desc: 'Access streaming and cross-border apps smoothly.' },
+            { title: 'Multi-Platform Support', desc: 'Windows, macOS, iOS, Android supported.' },
+            { title: 'One‑Click Subscription', desc: 'Import into popular clients effortlessly.' },
+            { title: 'Curated Nodes', desc: 'Quality lines and meticulous ops for quick recovery.' }
+          ]
+        }
+      };
+      function detectLocale() {
+        var supported = ['zh-CN','zh-HK','zh-TW','ja-JP','en-US'];
+        var saved = localStorage.getItem('landingLang');
+        if (saved && supported.indexOf(saved) >= 0) return saved;
+        var nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        if (nav.startsWith('zh')) {
+          if (nav.includes('hk')) return 'zh-HK';
+          if (nav.includes('tw')) return 'zh-TW';
+          return 'zh-CN';
+        }
+        if (nav.startsWith('ja')) return 'ja-JP';
+        if (nav.startsWith('en')) return 'en-US';
+        return 'zh-CN';
+      }
+      function applyLocale(lang) {
+        var t = i18n[lang] || i18n['zh-CN'];
+        var siteName = document.getElementById('siteName');
+        var heroTitle = document.getElementById('heroTitle');
+        var heroSubtitle = document.getElementById('heroSubtitle');
+        var stat1 = document.getElementById('stat1');
+        var stat2 = document.getElementById('stat2');
+        var stat3 = document.getElementById('stat3');
+        var toLoginTop = document.getElementById('toLoginTop');
+        var toRegisterTop = document.getElementById('toRegisterTop');
+        var ctaLogin = document.getElementById('ctaLogin');
+        var ctaRegister = document.getElementById('ctaRegister');
+        var toggleTheme = document.getElementById('toggleTheme');
+        if (siteName) siteName.textContent = t.siteName;
+        if (heroTitle) heroTitle.textContent = t.heroTitle;
+        if (heroSubtitle) heroSubtitle.textContent = t.heroSubtitle;
+        if (stat1 && t.stats[0]) stat1.textContent = t.stats[0];
+        if (stat2 && t.stats[1]) stat2.textContent = t.stats[1];
+        if (stat3 && t.stats[2]) stat3.textContent = t.stats[2];
+        if (toLoginTop) toLoginTop.textContent = t.topLogin;
+        if (toRegisterTop) toRegisterTop.textContent = t.topRegister;
+        if (ctaLogin) ctaLogin.textContent = t.ctaLogin;
+        if (ctaRegister) ctaRegister.textContent = t.ctaRegister;
+        if (toggleTheme) toggleTheme.textContent = t.toggleTheme;
+        if (langLabel) langLabel.textContent = langNames[lang] || lang;
+        if (mobileLangLabel) mobileLangLabel.textContent = langNames[lang] || lang;
+        renderFeatures(t.features || []);
+        revealInit();
+      }
+      function initLocale() {
+        var saved = detectLocale();
+        if (langSelect) langSelect.value = saved;
+        if (langLabel) langLabel.textContent = langNames[saved] || saved;
+        if (mobileLangLabel) mobileLangLabel.textContent = langNames[saved] || saved;
+        setActiveLang(saved);
+        applyLocale(saved);
+      }
+      if (langSelect) {
+        langSelect.addEventListener('change', function () {
+          var v = langSelect.value;
+          localStorage.setItem('landingLang', v);
+          applyLocale(v);
+        });
+      }
+      function setActiveLang(v) {
+        Array.prototype.slice.call(document.querySelectorAll('#langMenu .dropdown-item')).forEach(function (el) {
+          if (el.getAttribute('data-lang') === v) el.classList.add('active'); else el.classList.remove('active');
+        });
+        Array.prototype.slice.call(document.querySelectorAll('#mobileLangMenu .dropdown-item')).forEach(function (el) {
+          if (el.getAttribute('data-lang') === v) el.classList.add('active'); else el.classList.remove('active');
+        });
+      }
+      function openDropdown(menu, toggle) {
+        if (menu && toggle) {
+          menu.classList.add('open');
+          toggle.setAttribute('aria-expanded', 'true');
+          try {
+            var rect = toggle.getBoundingClientRect();
+            var menuRect = menu.getBoundingClientRect();
+            var spaceBelow = window.innerHeight - rect.bottom;
+            var needed = (menuRect.height || menu.scrollHeight || 280) + 12;
+            if (spaceBelow < needed) {
+              menu.classList.add('top');
+            } else {
+              menu.classList.remove('top');
+            }
+          } catch (e) {}
+        }
+      }
+      function closeDropdown(menu, toggle) {
+        if (menu && toggle) {
+          menu.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      }
+      if (langToggle && langMenu) {
+        langToggle.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = langMenu.classList.contains('open');
+          if (open) closeDropdown(langMenu, langToggle); else openDropdown(langMenu, langToggle);
+        });
+        langMenu.addEventListener('click', function (e) {
+          var item = e.target.closest('.dropdown-item');
+          if (!item) return;
+          var v = item.getAttribute('data-lang');
+          localStorage.setItem('landingLang', v);
+          if (langLabel) langLabel.textContent = langNames[v] || v;
+          if (mobileLangLabel) mobileLangLabel.textContent = langNames[v] || v;
+          setActiveLang(v);
+          applyLocale(v);
+          closeDropdown(langMenu, langToggle);
+        });
+      }
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (langMenu && langMenu.classList.contains('open')) {
+            closeDropdown(langMenu, langToggle);
+          }
+          if (mobileLangMenu && mobileLangMenu.classList.contains('open')) {
+            closeDropdown(mobileLangMenu, mobileLangToggle);
+          }
+          closeMobilePanel();
+        }
+      });
+      if (mobileLangToggle && mobileLangMenu) {
+        mobileLangToggle.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = mobileLangMenu.classList.contains('open');
+          if (open) closeDropdown(mobileLangMenu, mobileLangToggle); else openDropdown(mobileLangMenu, mobileLangToggle);
+        });
+        mobileLangMenu.addEventListener('click', function (e) {
+          var item = e.target.closest('.dropdown-item');
+          if (!item) return;
+          var v = item.getAttribute('data-lang');
+          localStorage.setItem('landingLang', v);
+          if (langLabel) langLabel.textContent = langNames[v] || v;
+          if (mobileLangLabel) mobileLangLabel.textContent = langNames[v] || v;
+          setActiveLang(v);
+          applyLocale(v);
+          closeDropdown(mobileLangMenu, mobileLangToggle);
+        });
+      }
+      function revealInit() {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var el = entry.target;
+              var idx = parseInt(el.getAttribute('data-idx') || '0', 10);
+              el.style.transitionDelay = (Math.min(idx, 6) * 60) + 'ms';
+              el.classList.add('in');
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12 });
+        Array.prototype.slice.call(document.querySelectorAll('.reveal, .visual-reveal')).forEach(function (el, i) {
+          el.setAttribute('data-idx', i);
+          observer.observe(el);
+        });
+      }
+      (function initParallax() {
+        try {
+          var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+          if (coarse) return;
+        } catch (e) {}
+        var visual = document.querySelector('.hero-visual');
+        var ring = visual && visual.querySelector('.visual-ring');
+        if (!visual || !ring) return;
+        var targetX = 0, targetY = 0, currentX = 0, currentY = 0, rafId = null;
+        function animate() {
+          currentX += (targetX - currentX) * 0.08;
+          currentY += (targetY - currentY) * 0.08;
+          ring.style.transform = 'translate3d(' + currentX + 'px,' + currentY + 'px,0)';
+          rafId = requestAnimationFrame(animate);
+        }
+        function onMove(e) {
+          var rect = visual.getBoundingClientRect();
+          var x = (e.clientX - rect.left) / rect.width - 0.5;
+          var y = (e.clientY - rect.top) / rect.height - 0.5;
+          targetX = x * 20;
+          targetY = y * 20;
+          if (!rafId) animate();
+        }
+        function onLeave() {
+          targetX = 0; targetY = 0;
+        }
+        visual.addEventListener('mousemove', onMove);
+        visual.addEventListener('mouseleave', onLeave);
+      })();
+      window.addEventListener('message', function (event) {
+        var data = event && event.data;
+        if (!data || !data.type) return;
+        if (data.type === 'setTheme' && data.theme) {
+          applyTheme(data.theme);
+        }
+      });
+      if (toggleThemeBtn) {
+        toggleThemeBtn.addEventListener('click', function () {
+          var next = currentTheme === 'dark' ? 'light' : 'dark';
+          try {
+            window.parent && window.parent.postMessage({ type: 'themeChanged', theme: next }, '*');
+          } catch (e) {}
+        });
+      }
+      if (mobileToggleThemeBtn) {
+        mobileToggleThemeBtn.addEventListener('click', function () {
+          var next = currentTheme === 'dark' ? 'light' : 'dark';
+          try {
+            window.parent && window.parent.postMessage({ type: 'themeChanged', theme: next }, '*');
+          } catch (e) {}
+        });
+      }
+      function openMobilePanel() {
+        if (mobileMenuPanel) {
+          mobileMenuPanel.classList.add('open');
+          mobileMenuPanel.setAttribute('aria-hidden', 'false');
+        }
+      }
+      function closeMobilePanel() {
+        if (mobileMenuPanel) {
+          mobileMenuPanel.classList.remove('open');
+          mobileMenuPanel.setAttribute('aria-hidden', 'true');
+        }
+      }
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', openMobilePanel);
+      }
+      if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMobilePanel);
+      }
+      document.addEventListener('click', function (e) {
+        if (mobileMenuPanel && mobileMenuPanel.classList.contains('open')) {
+          var within = mobileMenuPanel.contains(e.target) || (mobileMenuBtn && mobileMenuBtn.contains(e.target));
+          if (!within) closeMobilePanel();
+        }
+        if (langMenu && langMenu.classList.contains('open')) {
+          var withinLang = langDropdown && langDropdown.contains(e.target);
+          if (!withinLang) closeDropdown(langMenu, langToggle);
+        }
+        if (mobileLangMenu && mobileLangMenu.classList.contains('open')) {
+          var withinMLang = mobileLangDropdown && mobileLangDropdown.contains(e.target);
+          if (!withinMLang) closeDropdown(mobileLangMenu, mobileLangToggle);
+        }
+      });
+      if (mobileLoginBtn) {
+        mobileLoginBtn.addEventListener('click', function () {
+          try {
+            window.parent && window.parent.postMessage({ type: 'navigation', route: 'login' }, '*');
+            closeMobilePanel();
+          } catch (e) {}
+        });
+      }
+      if (mobileRegisterBtn) {
+        mobileRegisterBtn.addEventListener('click', function () {
+          try {
+            window.parent && window.parent.postMessage({ type: 'navigation', route: 'register' }, '*');
+            closeMobilePanel();
+          } catch (e) {}
+        });
+      }
+      try {
+        window.parent && window.parent.postMessage({ type: 'getTheme' }, '*');
+      } catch (e) {}
+      initLocale();
+      revealInit();
+      setFooterBrand();
+      try { document.title = 'NYLZ 諾亞龍舟'; } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
